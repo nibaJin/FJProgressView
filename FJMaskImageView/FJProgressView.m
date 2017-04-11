@@ -35,6 +35,12 @@
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self refreshProgress];
+}
+
 - (void)configImageView
 {
     _emptyImageView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -44,6 +50,20 @@
     [self addSubview:_emptyImageView];
     
     [self addSubview:_fullImageView];
+    
+    UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, 0, 0);
+
+    [self addConstraints:@[
+                           [NSLayoutConstraint constraintWithItem:_emptyImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_emptyImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_emptyImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_emptyImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:padding.top],
+                           
+                           [NSLayoutConstraint constraintWithItem:_fullImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_fullImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_fullImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:padding.top],
+                           [NSLayoutConstraint constraintWithItem:_fullImageView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:padding.top],
+                           ]];
 }
 
 #pragma mark -refreshProgress
